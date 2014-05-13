@@ -32,6 +32,21 @@
     return self;
 }
 
+- (void)removeAllFilters
+{
+    NSLog(@"Remove %@", self);
+    [lookupImageSource removeAllTargets];
+    [super removeAllFilters];
+    lookupImageSource = nil;
+    
+    [self removeOutputFramebuffer];
+}
+
+- (void)dealloc
+{
+    NSLog(@"Dealloc Amatorka");
+}
+
 #pragma mark -
 #pragma mark Accessors
 

@@ -215,6 +215,7 @@
 // ARC forbids explicit message send of 'release'; since iOS 6 even for dispatch_release() calls: stripping it out in that case is required.
 - (void)dealloc;
 {
+    NSLog(@"Dealloc GPUImagePicture");
     [outputFramebuffer enableReferenceCounting];
     [outputFramebuffer unlock];
 
@@ -279,6 +280,7 @@
     [self processImageWithCompletionHandler:^{
         UIImage *imageFromFilter = [finalFilterInChain imageFromCurrentFramebuffer];
         block(imageFromFilter);
+        imageFromFilter = nil;
     }];
 }
 

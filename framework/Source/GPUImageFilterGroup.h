@@ -16,4 +16,6 @@
 - (GPUImageOutput<GPUImageInput> *)filterAtIndex:(NSUInteger)filterIndex;
 - (NSUInteger)filterCount;
 
+- (void)removeAllFilters;
+
 @end

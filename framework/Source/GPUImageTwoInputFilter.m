@@ -65,6 +65,11 @@ NSString *const kGPUImageTwoInputTextureVertexShaderString = SHADER_STRING
     return self;
 }
 
+- (void)dealloc
+{
+    NSLog(@"Dealloc GPUImageTwoInputFilter");
+}
+
 - (void)initializeAttributes;
 {
     [super initializeAttributes];

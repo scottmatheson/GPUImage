@@ -56,6 +56,23 @@
     return self;
 }
 
+- (void)removeAllFilters
+{
+    NSLog(@"Remove %@", self);
+    [lookupImageSource1 removeAllTargets];
+    [lookupImageSource2 removeAllTargets];
+    [super removeAllFilters];
+    lookupImageSource1 = nil;
+    lookupImageSource2 = nil;
+    
+    [self removeOutputFramebuffer];
+}
+
+- (void)dealloc
+{
+    NSLog(@"Dealloc SoftElegance");
+}
+
 #pragma mark -
 #pragma mark Accessors
 

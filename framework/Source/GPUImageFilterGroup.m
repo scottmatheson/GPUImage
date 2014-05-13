@@ -19,6 +19,11 @@
     return self;
 }
 
+- (void)dealloc
+{
+    //NSLog(@"Dealloc GPUImageFilterGroup");
+}
+
 #pragma mark -
 #pragma mark Filter management
 
@@ -35,6 +40,34 @@
 - (NSUInteger)filterCount;
 {
     return [filters count];
+}
+
+- (void)removeAllFilters;
+{
+    [filters enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[GPUImageFilterGroup class]]) {
+            GPUImageFilterGroup *tmp = (GPUImageFilterGroup *)obj;
+            if ([tmp respondsToSelector:@selector(removeAllFilters)]) {
+                [tmp performSelector:@selector(removeAllFilters)];
+            }
+        }
+    }];
+    
+    [filters makeObjectsPerformSelector:@selector(removeAllTargets)];
+    [filters makeObjectsPerformSelector:@selector(removeOutputFramebuffer)];
+
+    [self.initialFilters makeObjectsPerformSelector:@selector(removeAllTargets)];
+    [self.initialFilters makeObjectsPerformSelector:@selector(removeOutputFramebuffer)];
+
+    [self removeAllTargets];
+    [self removeOutputFramebuffer];
+
+    [filters removeAllObjects];
+    self.initialFilters = @[];
+    self.initialFilters = nil;
+
+    self.terminalFilter = nil;
+    filters = nil;
 }
 
 #pragma mark -

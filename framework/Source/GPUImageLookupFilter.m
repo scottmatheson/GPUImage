@@ -90,4 +90,9 @@ NSString *const kGPUImageLookupFragmentShaderString = SHADER_STRING
     return self;
 }
 
+- (void)dealloc
+{
+    NSLog(@"Dealloc GPUImageLookupFilter");
+}
+
 @end

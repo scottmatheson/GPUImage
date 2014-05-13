@@ -202,12 +202,13 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
     // custom output settings specified
     else 
     {
+#if !defined NS_BLOCK_ASSERTIONS
 		NSString *videoCodec = [outputSettings objectForKey:AVVideoCodecKey];
 		NSNumber *width = [outputSettings objectForKey:AVVideoWidthKey];
 		NSNumber *height = [outputSettings objectForKey:AVVideoHeightKey];
 		
 		NSAssert(videoCodec && width && height, @"OutputSettings is missing required parameters.");
-        
+#endif
         if( [outputSettings objectForKey:@"EncodingLiveVideo"] ) {
             NSMutableDictionary *tmp = [outputSettings mutableCopy];
             [tmp removeObjectForKey:@"EncodingLiveVideo"];
@@ -529,10 +530,11 @@ NSString *const kGPUImageColorSwizzlingFragmentShaderString = SHADER_STRING
         glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, movieRenderbuffer);	
     }
     
-	
+#if !defined NS_BLOCK_ASSERTIONS
 	GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
-    
     NSAssert(status == GL_FRAMEBUFFER_COMPLETE, @"Incomplete filter FBO: %d", status);
+#endif
+    
 }
 
 - (void)destroyDataFBO;
